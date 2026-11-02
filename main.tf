@@ -108,3 +108,17 @@ resource "aws_s3_bucket_replication_configuration" "docs" {
     }
   }
 }
+
+# dev2 : accès SSH au bastion pour le debug
+resource "aws_security_group" "bastion" {
+  name        = "bastion-sg"
+  description = "Bastion SSH access"
+
+  ingress {
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
