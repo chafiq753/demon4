@@ -1,0 +1,19 @@
+# Configuration iac-guard — https://github.com/chafiq753/iac-guard
+# Les options de la ligne de commande (--fail-on, --tools) passent avant ce fichier.
+
+# Gravité qui fait échouer le scan : critical | high | medium | low | info | none
+fail_on: high
+
+# Chemins qui ne comptent pas (dossier ou motif glob)
+exclude: []
+#  - examples/
+#  - "**/*_test.tf"
+
+# Risques acceptés. `reason` est obligatoire (10 caractères minimum).
+ignore: []
+#  - rule: CKV_AWS_144
+#    reason: "Données non critiques : pas de réplication multi-région"
+#  - rule: CKV_AWS_20
+#    path: modules/site-public/
+#    reason: "Site statique public : le bucket doit être lisible par tous"
+#    expires: 2026-12-31

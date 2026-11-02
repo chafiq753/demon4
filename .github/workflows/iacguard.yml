@@ -1,0 +1,33 @@
+# iac-guard : scan de sécurité à chaque pull request.
+# Pour bloquer le merge quand le scan échoue :
+#   Settings > Rules > Rulesets > New branch ruleset > cible : branche par défaut
+#   > « Require status checks to pass » > ajouter le check « iac-guard ».
+name: iac-guard
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  security-events: write    # alertes dans Security > Code scanning
+
+jobs:
+  iac-guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0          # Gitleaks lit l'historique Git
+
+      - uses: chafiq753/iac-guard@v1
+        with:
+          upload-sarif: true      # seuil, exclusions, exceptions : .iacguard.yml
+
+      - name: Garder le rapport
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iacguard-report
+          path: iacguard-report.json
