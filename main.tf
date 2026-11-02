@@ -109,7 +109,7 @@ resource "aws_s3_bucket_replication_configuration" "docs" {
   }
 }
 
-# dev2 : accès SSH au bastion pour le debug
+# dev2 : acces SSH au bastion pour le debug
 resource "aws_security_group" "bastion" {
   name        = "bastion-sg"
   description = "Bastion SSH access"
